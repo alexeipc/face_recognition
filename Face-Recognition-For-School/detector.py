@@ -81,7 +81,7 @@ while not(cv2.waitKey(1) & 0xFF == ord('q')):
         
         print(conf)
         
-        if (conf <40) :
+        if (conf < 50) :
             profile = getProfile(nbr_predicted)
             cv2.putText(im,str(profile[1]), (x,y+h+30),font, 1.1, (0,255,0))
             cv2.putText(im,str(profile[3]), (x,y+h+60),font, 1.1, (0,255,0))
