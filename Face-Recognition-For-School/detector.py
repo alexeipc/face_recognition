@@ -73,14 +73,16 @@ while not(cv2.waitKey(1) & 0xFF == ord('q')):
  
     
     for(x,y,w,h) in faces:
-        nbr_predicted, conf = recognizer.predict(gray[y:y+h,x:x+w])
         #print (nbr_predicted)
-        cv2.rectangle(im,(x-50,y-50),(x+w+50,y+h+50),(225,0,0),2)
+        cv2.rectangle(im,(x-50,y-50),(x+w+50,y+h+50),(225,0,0),1)
         
-        profile = getProfile(nbr_predicted)
+        nbr_predicted, conf = recognizer.predict(gray[y:y+h,x:x+w])
         
         
-        if (profile != None):
+        print(conf)
+        
+        if (conf <40) :
+            profile = getProfile(nbr_predicted)
             cv2.putText(im,str(profile[1]), (x,y+h+30),font, 1.1, (0,255,0))
             cv2.putText(im,str(profile[3]), (x,y+h+60),font, 1.1, (0,255,0))
             
@@ -99,6 +101,10 @@ while not(cv2.waitKey(1) & 0xFF == ord('q')):
                 
                 os.system("cls")
                 Update()
+            
+        else:
+            cv2.putText(im,"UNKNOWN", (x,y+h+30),font, 1.1, (0,255,0))
+            
         
         cv2.imshow('im',im)
 
